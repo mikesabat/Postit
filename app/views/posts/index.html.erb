@@ -4,6 +4,7 @@
 <table>
   <tr>
     <th></th>
+    <th></th>
     <th>Title</th>
     <th>Submitter</th>
     <th>Comments</th>
@@ -13,10 +14,15 @@
   <% counter = 1 %>
   <% @posts.each do |post| %>
     <tr>
+      <%= form_for(@vote) do |f| %>
+        <%= f.hidden_field :post_id, :value => @post.id %>
+        <%= f.submit "vote +1" %>
+      <% end %> 
+
       <td><%= counter.to_s + "." %></td>
       <td><%= link_to (post.title, fix_url(post.URL)) %></td>
       <td><%= "submitted by #{display_user(post.user)}" %> </td>
-      <td> <%= link_to (post.comments.count, post_comments_path(post)) %>
+      <td> <%= link_to (post.comments.count, post_comments_path(post)) %> </td>
     </tr>  
     <% counter += 1 %>
 

@@ -5,6 +5,7 @@ Postit::Application.routes.draw do
 
   resources :posts do
     resources :comments
+    resources :votes
   end
 
   resources :users
