@@ -1,27 +1,22 @@
-<h1>Listing comments</h1>
 
-<table>
-  <tr>
-    <th>Comment</th>
-    <th>Post</th>
-    <th>User</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<p>
+This post has <%= @post.comments.size %> comments
 
-<% @comments.each do |comment| %>
-  <tr>
-    <td><%= comment.comment %></td>
-    <td><%= comment.post_id %></td>
-    <td><%= comment.user_id %></td>
-    <td><%= link_to 'Show', comment %></td>
-    <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
-    <td><%= link_to 'Destroy', comment, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
 
-<br />
+<p>
+  <% @post.comments.each do |comment| %>
+    <%= comment.comment %>
+    by: <%= comment.user.name %>
+    <hr/>
+   <% end %>
+</p>
 
-<%= link_to 'New Comment', new_comment_path %>
+
+Add a Comment:
+<p>
+  <%= form_for(Comment.new, :url => post_comments_path(@post)) do |f| %>
+    <%= f.text_area :comment %>
+    <%= f.select :user_id, User.all.collect {|p| [p.name, p.id]} %>
+    <%= f.submit "Go" %>
+  <% end %>
+</p>

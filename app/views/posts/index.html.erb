@@ -1,24 +1,29 @@
-<h1>Listing posts</h1>
-
-<table>
-  <tr>
-    <th>Url</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @posts.each do |post| %>
-  <tr>
-    <td><%= post.URL %></td>
-    <td><%= link_to 'Show', post %></td>
-    <td><%= link_to 'Edit', edit_post_path(post) %></td>
-    <td><%= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete %></td>
-    <td><%= link_to 'Comment', new_comment_path %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
 
 <%= link_to 'New Post', new_post_path %>
+<p>
+<table>
+  <tr>
+    <th></th>
+    <th>Title</th>
+    <th>Submitter</th>
+    <th>Comments</th>
+  </tr>  
+
+
+  <% counter = 1 %>
+  <% @posts.each do |post| %>
+    <tr>
+      <td><%= counter.to_s + "." %></td>
+      <td><%= link_to (post.title, fix_url(post.URL)) %></td>
+      <td><%= "submitted by #{display_user(post.user)}" %> </td>
+      <td> <%= link_to (post.comments.count, post_comments_path(post)) %>
+    </tr>  
+    <% counter += 1 %>
+
+
+  <% end %>
+
+</table>  
+
+
+

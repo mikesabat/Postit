@@ -1,9 +1,15 @@
 Postit::Application.routes.draw do
-  resources :comments
+  root :to => 'posts#index'
 
-  resources :posts
+  
+
+  resources :posts do
+    resources :comments
+  end
 
   resources :users
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
