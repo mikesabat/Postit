@@ -13,16 +13,16 @@
 
   <% counter = 1 %>
   <% @posts.each do |post| %>
-    <tr>
-      <%= form_for(@vote) do |f| %>
-        <%= f.hidden_field :post_id, :value => @post.id %>
-        <%= f.submit "vote +1" %>
-      <% end %> 
-
+    <tr>      
+      <td> <%= link_to "▲", post_votes_path(post, :direction => "up"), :method => 'post' %> 
+        <br/>
+        (<%= post.vote_total %>)
+        <br/>
+        <%= link_to "▼", post_votes_path(post, :direction => "down"), :method => 'post' %></td>
       <td><%= counter.to_s + "." %></td>
       <td><%= link_to (post.title, fix_url(post.URL)) %></td>
       <td><%= "submitted by #{display_user(post.user)}" %> </td>
-      <td> <%= link_to (post.comments.count, post_comments_path(post)) %> </td>
+      <td> <%= link_to(post.comments.count, post_comments_path(post)) %> </td>
     </tr>  
     <% counter += 1 %>
 
@@ -30,6 +30,4 @@
   <% end %>
 
 </table>  
-
-
 

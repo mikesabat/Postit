@@ -3,5 +3,9 @@ class Post < ActiveRecord::Base
   belongs_to :user
   has_many :comments
   has_many :votes
+
+  def vote_total
+  	self.votes.where(:vote_boo => true).count - self.votes.where(:vote_boo => false).count
+  end
   
 end

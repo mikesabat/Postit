@@ -5,10 +5,18 @@ class VotesController < ApplicationController
 	end
 
 	def create
-	  @vote = Vote.create(params[:vote])  
-	  #post = params[:vote][:post_id]
-	  #user = params[:vote][:user_id]
-	  
+	  #Vote.create(params[:post]) 
+	  post = Post.find(params[:post_id]) 
+	  if params[:direction] == "up"
+	    post.votes.create(:vote_boo => true)
+	    msg = "Upvote #{post.title}"
+	  else
+	  	post.votes.create(:vote_boo => false)
+	  	msg = "Downvote #{post.title}"
+	  end
+
+	  redirect_to root_path, :notice => msg
+	  	  
 	end
 
 

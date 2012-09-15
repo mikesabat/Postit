@@ -5,7 +5,7 @@ Postit::Application.routes.draw do
 
   resources :posts do
     resources :comments
-    resources :votes
+    resources :votes, :only => [:create]
   end
 
   resources :users
